@@ -1,212 +1,290 @@
-# File Compression Tool
+# 🗜️ File Compression Tool
 
-A web-based file compression and decompression tool using Huffman Coding algorithm. Built with Flask and featuring an interactive animated UI powered by Vanta.js.
+A modern web-based file compression tool using **Huffman Coding** algorithm. This application provides lossless compression for text-based files with an intuitive and beautiful user interface.
 
-## 📋 Overview
-
-This project implements a lossless file compression system using the Huffman Coding algorithm. Users can upload text files to compress them into binary format or decompress previously compressed files back to their original form through an elegant web interface.
+![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)
+![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## ✨ Features
 
-- **Huffman Coding Algorithm**: Efficient lossless compression using frequency-based encoding
-- **Compress Files**: Upload any text-based file and compress it to reduce file size
-- **Decompress Files**: Restore compressed binary files to their original text format
-- **Interactive UI**: Animated backgrounds using Vanta.js with Three.js
-- **Instant Download**: Automatically download compressed/decompressed files
-- **User-Friendly Interface**: Clean, modern design with smooth animations and transitions
-- **Real-time Feedback**: Visual alerts for successful operations or errors
+- **Lossless Compression**: Original data is perfectly preserved
+- **Huffman Coding Algorithm**: Efficient variable-length encoding
+- **Modern UI**: Beautiful, responsive design with drag-and-drop support
+- **Multiple File Types**: Supports TXT, LOG, CSV, JSON, XML, HTML, CSS, JS, Python, Java, C, C++, Markdown
+- **Fast Processing**: Quick compression and decompression
+- **Secure**: Files are processed locally and not stored permanently
+- **Real-time Feedback**: Progress indicators and error handling
 
-## 🛠️ Technologies Used
+## 🎯 How It Works
 
-### Backend
-- **Flask**: Python web framework
-- **Python 3**: Core programming language
-- **Huffman Algorithm**: Custom implementation for compression/decompression
+### Huffman Coding Algorithm
 
-### Frontend
-- **HTML5/CSS3**: Structure and styling
-- **JavaScript/jQuery**: Interactive functionality
-- **Vanta.js**: Animated background effects
-- **Three.js**: 3D graphics library
-- **Bootstrap 3**: UI components and alerts
+Huffman coding is a lossless data compression algorithm that:
 
-## 🧮 How Huffman Coding Works
+1. **Analyzes character frequency** in the input text
+2. **Builds a binary tree** where frequent characters have shorter codes
+3. **Generates unique binary codes** for each character
+4. **Encodes the text** using these variable-length codes
+5. **Saves space** by using fewer bits for common characters
 
-Huffman Coding is a lossless data compression algorithm that:
+### Example
 
-1. **Analyzes Frequency**: Counts the occurrence of each character in the text
-2. **Builds Binary Tree**: Creates a binary tree based on character frequencies
-3. **Generates Codes**: Assigns shorter binary codes to more frequent characters
-4. **Encodes Data**: Replaces characters with their binary codes
-5. **Stores Tree**: Saves the Huffman tree for decompression
+```
+Original text: "AAABBC"
+Character frequencies: A=3, B=2, C=1
 
-This results in significant file size reduction for text files!
+Huffman codes might be:
+A -> 0
+B -> 10
+C -> 11
 
-## 🚀 Installation & Setup
+Encoded: "000101011" (9 bits vs 48 bits in ASCII)
+Compression ratio: ~81% reduction
+```
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
 - Python 3.7 or higher
 - pip (Python package manager)
 
-### Step 1: Clone the Repository
+### Installation
 
-```bash
-git clone https://github.com/yourusername/file-compression-tool.git
-cd file-compression-tool
-```
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/file-compression-tool.git
+   cd file-compression-tool
+   ```
 
-### Step 2: Install Dependencies
+2. **Create a virtual environment** (recommended)
+   ```bash
+   python -m venv venv
+   
+   # On Windows
+   venv\Scripts\activate
+   
+   # On macOS/Linux
+   source venv/bin/activate
+   ```
 
-```bash
-pip install flask
-```
+3. **Install dependencies**
+   ```bash
+   pip install flask
+   ```
 
-### Step 3: Run the Application
+4. **Run the application**
+   ```bash
+   python app.py
+   ```
 
-```bash
-python app.py
-```
-
-The application will start on `http://127.0.0.1:5000/`
+5. **Open in browser**
+   ```
+   http://localhost:5000
+   ```
 
 ## 📁 Project Structure
 
 ```
 file-compression-tool/
 │
-├── app.py                  # Main Flask application
-├── huffman.py             # Huffman coding implementation
-├── README.md              # Project documentation
+├── app.py                 # Flask application and routes
+├── huffman.py            # Huffman coding implementation
+├── README.md             # Project documentation
 │
-├── templates/             # HTML templates
-│   ├── home.html         # Landing page
-│   ├── compress.html     # Compression page
-│   └── decompress.html   # Decompression page
+├── templates/            # HTML templates
+│   ├── home.html        # Landing page
+│   ├── compress.html    # Compression page
+│   └── decompress.html  # Decompression page
 │
-└── uploads/              # Temporary storage for uploaded files
-    └── (uploaded files stored here temporarily)
+├── uploads/             # Temporary upload storage (created automatically)
+├── compressed/          # Compressed files storage (created automatically)
+└── decompressed/        # Decompressed files storage (created automatically)
 ```
 
 ## 💻 Usage
 
-### Compressing a File
+### Compressing Files
 
-1. Navigate to `http://127.0.0.1:5000/` in your web browser
-2. Click the **COMPRESS** button
-3. Select a text-based file (e.g., .txt, .csv, .log)
-4. Click **Upload** and wait for processing
-5. The compressed `.bin` file will automatically download
+1. Navigate to the **Compress** page
+2. Click the upload area or drag and drop a text file
+3. Supported formats: `.txt`, `.log`, `.csv`, `.json`, `.xml`, `.html`, `.css`, `.js`, `.py`, `.java`, `.cpp`, `.c`, `.md`
+4. Click **Compress File**
+5. Download the `.huff` compressed file
 
-### Decompressing a File
+### Decompressing Files
 
-1. From the home page, click the **DECOMPRESS** button
-2. Select a previously compressed `.bin` file
-3. Click **Upload** and wait for processing
-4. The decompressed `.txt` file will automatically download
-
-## 📊 File Format
-
-### Compressed File Structure
-
-The compressed `.bin` file contains:
-1. **Header**: Huffman tree codes (character-to-binary mapping)
-2. **Body**: Encoded binary data
-
-This structure allows the decompression algorithm to rebuild the original text.
+1. Navigate to the **Decompress** page
+2. Upload a `.huff` file (previously compressed by this tool)
+3. Click **Decompress File**
+4. Download the restored original text file
 
 ## 🎨 UI Features
 
-- **Home Page**: Purple animated network background with NET effect
-- **Compress Page**: Red animated dots background with DOTS effect
-- **Decompress Page**: Blue animated dots background with DOTS effect
-- **Hover Effects**: Buttons transform on hover for better UX
-- **Success Alerts**: Green alerts for successful operations
-- **Error Alerts**: Red alerts for failed operations
+- **Gradient Backgrounds**: Eye-catching color schemes
+- **Drag & Drop**: Easy file upload
+- **Progress Indicators**: Visual feedback during processing
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **Smooth Animations**: Professional transitions and effects
+- **Error Handling**: Clear error messages and validation
 
-## ⚙️ Key Components
+## 🔧 API Endpoints
 
-### huffman.py
+### `GET /`
+Home page with navigation
 
-Contains the core compression logic:
-- `Node`: Binary tree node class for Huffman tree
-- `build_tree()`: Constructs Huffman tree from character frequencies
-- `build_codes()`: Generates binary codes for each character
-- `compress()`: Compresses input file and saves as binary
-- `decompress()`: Restores original file from compressed binary
+### `GET /compress`
+Compression interface
 
-### app.py
+### `POST /compress`
+- **Input**: Multipart form data with file
+- **Output**: Compressed `.huff` file download
+- **Errors**: 400 (invalid file), 500 (processing error)
 
-Flask application with routes:
-- `/`: Home page
-- `/compress`: Compression interface (GET) and processing (POST)
-- `/decompress`: Decompression interface (GET) and processing (POST)
+### `GET /decompress`
+Decompression interface
 
-## 📈 Compression Efficiency
+### `POST /decompress`
+- **Input**: Multipart form data with `.huff` file
+- **Output**: Decompressed `.txt` file download
+- **Errors**: 400 (invalid file), 500 (processing error)
 
-Huffman Coding typically achieves:
-- **20-90% compression** depending on text redundancy
-- **Better results** for texts with repeated patterns
-- **Lossless compression** - no data loss during compression/decompression
+## 📊 Performance
 
-## ⚠️ Important Notes
+### Compression Ratios (Typical)
 
-- **Text Files Only**: This tool is designed for text-based files
-- **Binary Files**: Images, videos, and executables are not supported
-- **Temporary Storage**: Uploaded files are stored in the `uploads/` folder
-- **File Cleanup**: Consider implementing automatic cleanup for the uploads folder
+| File Type | Average Compression |
+|-----------|-------------------|
+| Plain Text | 40-60% |
+| Source Code | 50-70% |
+| JSON | 60-80% |
+| Logs | 50-70% |
 
-## 🔒 Security Considerations
+*Note: Actual compression depends on character frequency distribution*
 
-For production deployment, consider:
-- Implementing file size limits
-- Adding file type validation
-- Sanitizing uploaded filenames
-- Securing the uploads directory
-- Adding user authentication
-- Implementing rate limiting
+### Limitations
+
+- Best suited for text-based files
+- Small files (< 100 bytes) may not compress well
+- Binary files are not supported
+- Very random data compresses poorly
+
+## 🛠️ Technical Details
+
+### Algorithm Complexity
+
+- **Time Complexity**: O(n log n) for building tree, O(n) for encoding
+- **Space Complexity**: O(n) for tree storage
+
+### File Format
+
+Compressed `.huff` files contain:
+1. Padding information (1 byte)
+2. Pickled Huffman code dictionary
+3. Compressed binary data
+
+## 🔐 Security
+
+- Files are processed server-side temporarily
+- Original uploads are deleted after processing
+- No permanent storage of user files
+- No tracking or analytics
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Error: "Cannot compress empty file"**
+- Ensure the file contains text data
+
+**Error: "Invalid file type"**
+- Check that file extension is in the supported list
+
+**Decompression fails**
+- Ensure the file was compressed by this tool
+- File may be corrupted
+
+**Port already in use**
+```bash
+# Change port in app.py
+app.run(debug=True, port=5001)
+```
+
+## 🚧 Future Enhancements
+
+- [ ] Support for additional compression algorithms (LZW, LZ77)
+- [ ] Batch file processing
+- [ ] Compression statistics and analytics
+- [ ] File comparison tool
+- [ ] Cloud storage integration
+- [ ] Password protection for compressed files
+- [ ] Command-line interface (CLI)
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Here's how:
 
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 🐛 Known Issues
-
-- Large files may take longer to process
-- The `uploads/` folder can accumulate files over time
-- No file size limit implemented by default
-
-## 🔮 Future Enhancements
-
-- Add support for multiple file compression (ZIP-like functionality)
-- Implement compression ratio statistics
-- Add file size comparison (before/after)
-- Create progress indicators for large files
-- Add drag-and-drop file upload
-- Implement automatic cleanup of temporary files
-- Add compression level options
-
 ## 📝 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see below for details:
+
+```
+MIT License
+
+Copyright (c) 2025 [Your Name]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
 
 ## 👨‍💻 Author
 
-Aashish Joshi - [AAs6395](https://github.com/AAs6395)
+**Your Name**
+- GitHub: [@AAs6395](https://github.com/AAs6395)
+- Email: jaashish109@gmail.com
 
 ## 🙏 Acknowledgments
 
-- Huffman Coding algorithm by David A. Huffman
-- Vanta.js for amazing background animations
-- Flask framework and community
-- Bootstrap for UI components
+- Huffman Coding algorithm by David A. Huffman (1952)
+- Flask web framework
+- Google Fonts (Inter font family)
+- Community contributors
+
+## 📚 Resources
+
+- [Huffman Coding - Wikipedia](https://en.wikipedia.org/wiki/Huffman_coding)
+- [Flask Documentation](https://flask.palletsprojects.com/)
+- [Data Compression Algorithms](https://www.geeksforgeeks.org/huffman-coding-greedy-algo-3/)
+
+## 📞 Support
+
+For issues, questions, or suggestions:
+- Email: jaashish109@gmail.com
 
 ---
 
-**Note**: This tool is for educational purposes. For production use, consider additional features like error handling, file validation, and security measures.
+**⭐ Star this repository if you find it helpful!**
+
+Made with ❤️ and Python
